@@ -123,7 +123,7 @@
       <button data-s="parcours" class="actif" onclick="aller('parcours')">Mon parcours</button>
       <button data-s="programme" onclick="aller('programme')">Programme</button>
       <button data-s="supports" onclick="aller('supports')">Supports</button>
-      <button data-s="photos" onclick="aller('photos')">Photos</button>
+      <button data-s="photos" onclick="aller('photos')">Photos & schémas</button>
     </nav>
     <span id="user-chip"></span>
     <button id="btn-logout" onclick="deconnexion()">se déconnecter</button>
@@ -237,10 +237,13 @@
       <div id="docs"></div>
     </section>
 
-    <!-- PHOTOS -->
+    <!-- PHOTOS & SCHEMAS -->
     <section id="s-photos" class="section">
-      <div class="kicker">Souvenirs</div>
-      <h2>Photos du stage</h2>
+      <div class="kicker">Visuels du stage</div>
+      <h2>Schémas stratégiques</h2>
+      <p class="intro">Les schémas clés de l'entraînement et de la performance — cliquez pour agrandir. À utiliser avec les supports « Facteurs de la performance » et « Construction de l'entraînement ».</p>
+      <div id="galerie-schemas"></div>
+      <h2 style="margin-top:34px;">Photos du stage</h2>
       <p class="intro">Les photos du groupe, du week-end et des séances.</p>
       <div id="galerie"></div>
     </section>
@@ -389,20 +392,22 @@ function rendreDocs(){
     zone.appendChild(grid);
   });
 }
-function rendrePhotos(){
-  const g = document.getElementById('galerie'); g.innerHTML="";
-  if(!PHOTOS.length){
-    g.innerHTML = '<div class="vide">📷 La galerie est encore vide.<br>Les photos du groupe seront ajoutées ici au fil du stage — envoyez vos meilleures photos aux formateurs !</div>';
-    return;
-  }
+function grilleImages(zone, liste, vide){
+  zone.innerHTML="";
+  if(!liste.length){ zone.innerHTML = '<div class="vide">'+vide+'</div>'; return; }
   const grid = document.createElement('div'); grid.className='galerie';
-  PHOTOS.forEach(p=>{
+  liste.forEach(p=>{
     const f = document.createElement('figure');
-    f.innerHTML = '<img src="'+p.fichier+'" alt="" loading="lazy"><figcaption>'+(p.legende||'')+'</figcaption>';
+    f.innerHTML = '<img src="'+p.fichier+'" alt="" loading="lazy" style="object-fit:contain;background:#fff;"><figcaption>'+(p.legende||'')+'</figcaption>';
     f.onclick = ()=>{ document.getElementById('lb-img').src=p.fichier; document.getElementById('lb-cap').textContent=p.legende||''; document.getElementById('lightbox').style.display='flex'; };
     grid.appendChild(f);
   });
-  g.appendChild(grid);
+  zone.appendChild(grid);
+}
+function rendrePhotos(){
+  const schemas = (typeof SCHEMAS !== 'undefined') ? SCHEMAS : [];
+  grilleImages(document.getElementById('galerie-schemas'), schemas, "Les schémas seront ajoutés ici.");
+  grilleImages(document.getElementById('galerie'), PHOTOS, "📷 La galerie est encore vide.<br>Les photos du groupe seront ajoutées ici au fil du stage — envoyez vos meilleures photos aux formateurs !");
 }
 /* session persistante pendant l'onglet */
 (function(){
