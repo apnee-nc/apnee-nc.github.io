@@ -38,8 +38,15 @@ const DOCUMENTS = [
   },
   {
     categorie: "referentiels",
-    titre: "Manuel du Moniteur d'apnée stagiaire",
-    description: "Le manuel fédéral de référence du moniteur d'apnée (67 pages) — pédagogie, organisation, sécurité, réglementation.",
+    titre: "⭐ Addendum 2026 — Ce qui a changé depuis 2004",
+    description: "À lire AVANT le manuel de 2004 : refonte des cursus 2019 (Pass', brevets CMAS piscine/eau libre), filière cadres IE1→MEF2, RIFAA obligatoire, santé et sécurité actuelles, liens vers les textes officiels en vigueur.",
+    fichier: "documents/Addendum_actualisation_manuel_2026.docx",
+    type: "DOCX",
+  },
+  {
+    categorie: "referentiels",
+    titre: "Manuel du Moniteur d'apnée stagiaire (2004 — historique)",
+    description: "Le manuel pédagogique de référence (67 pages) : toujours précieux pour la pédagogie et la culture apnée, mais les cursus et brevets qu'il décrit sont OBSOLÈTES — lisez l'addendum 2026 ci-dessus et référez-vous aux manuels officiels sur apnee.ffessm.fr.",
     fichier: "documents/Manuel_Moniteur.pdf",
     type: "PDF",
   },
