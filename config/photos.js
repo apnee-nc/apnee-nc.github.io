@@ -11,5 +11,8 @@ const SCHEMAS = [
 ];
 
 const PHOTOS = [
-  // { fichier: "photos/theorie_samedi.jpg", legende: "Cours théorique du samedi matin" },
+  { fichier: "photos/stage-atelier-tableau.jpg", legende: "Atelier pédagogique : présentation au tableau sous le faré" },
+  { fichier: "photos/stage-salle-de-cours.jpg", legende: "La salle de cours du stage : travail des stagiaires et passage au tableau" },
+  { fichier: "photos/stage-participantes.jpg", legende: "Les participantes du stage sous le faré" },
+  { fichier: "photos/stage-echange-groupe.jpg", legende: "Échange de groupe avec l'encadrement du stage" },
 ];
