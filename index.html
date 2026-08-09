@@ -289,7 +289,7 @@ const PARCOURS = {
   ie2: {
     nom: "IE2 — Initiateur-Entraîneur", ico: "🌊",
     objectif: "Devenir capable d'initier, d'encadrer et d'entraîner en apnée dans le cadre de vos prérogatives, en construisant des séances sûres et progressives.",
-    examen: "Épreuves visées : pédagogie pratique (construction et animation de séance), pédagogie théorique (sujet au tableau : 20 min + 10 min de correction), sécurité & réglementation. Prérequis : RIFAA validé.",
+    examen: "Validation du brevet au stage final de Lifou, fin octobre. Épreuves : pédagogie pratique (construction et animation de séance), pédagogie théorique (sujet au tableau : 20 min + 10 min de correction), sécurité & réglementation. Prérequis : RIFAA validé. Le stage initial de ce week-end lance votre préparation — vous avez trois mois pour ancrer chaque compétence.",
     priorites: [
       "Prérogatives Initiateur/Moniteur et cursus fédéral (samedi 8h30) : connaître exactement ce que vous pouvez encadrer",
       "Organisation de la sécurité (samedi 10h30) : le cœur de votre futur rôle",
@@ -378,7 +378,7 @@ const PARCOURS = {
   mef1: {
     nom: "MEF1 — Moniteur Entraîneur Fédéral 1er degré", ico: "🐬",
     objectif: "Passer de l'animation de séance à la construction de progressions complètes : enseigner, entraîner et évaluer sur l'ensemble du cursus apnéiste.",
-    examen: "Épreuves visées : pédagogie théorique (cours de 20 min niveau cadre), pédagogie pratique, construction d'une progression (l'épreuve reine, absente de l'examen IE), réglementation, physiologie et accidents. Prérequis : RIFAA validé.",
+    examen: "Validation du brevet au stage final de Lifou, fin octobre. Épreuves : pédagogie théorique (cours de 20 min niveau cadre), pédagogie pratique, construction d'une progression (l'épreuve reine, absente de l'examen IE), réglementation, physiologie et accidents. Prérequis : RIFAA validé. Le stage initial de ce week-end pose les bases — les trois mois qui suivent font la différence.",
     priorites: [
       "Tout le programme IE2, plus :",
       "« Préparation d'une progression » (dimanche 14h) : c'est LE sujet de votre examen final que les IE n'ont pas",
@@ -482,7 +482,7 @@ const PARCOURS = {
   mef2: {
     nom: "MEF2 — Moniteur Entraîneur Fédéral 2e degré", ico: "🦈",
     objectif: "Devenir formateur de cadres : c'est vous qui présentez les cours de ce stage et qui corrigez les sujets des stagiaires IE2 et MEF1.",
-    examen: "Rôle visé : concevoir et animer des formations de cadres, évaluer et faire progresser les stagiaires IE et MEF1, siéger dans les jurys. Ce stage EST votre terrain d'entraînement : chaque cours animé et chaque correction donnée compte.",
+    examen: "Rôle visé : concevoir et animer des formations de cadres, évaluer et faire progresser les stagiaires IE et MEF1, siéger dans les jurys. Le stage initial de ce week-end EST votre terrain d'entraînement — chaque cours animé et chaque correction donnée compte — et le stage final de fin octobre à Lifou sera celui de la validation.",
     priorites: [
       "Vos interventions à préparer dès le vendredi 14h : réglementation, organisation de la sécurité, physiologie et accidents, paramètres de la performance, construction d'entraînement",
       "La correction des sujets (10 minutes après chaque présentation de 20') : corriger avec bienveillance ET précision",
@@ -670,7 +670,7 @@ function rendreParcours(actif){
       "<span id='prog-texte' style='font-size:.82rem;color:var(--mut);'></span></div>" +
       "<div style='height:10px;background:var(--ice);border-radius:99px;margin-top:10px;overflow:hidden;'><div id='prog-barre' style='height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--ocean));border-radius:99px;transition:width .4s;'></div></div>" +
       "<div id='carnet-lignes' style='margin-top:12px;'></div>" +
-      "<p style='font-size:.78rem;color:var(--mut);margin-top:10px;'>Vos coches sont enregistrées sur cet appareil, personne d'autre ne les voit. Une compétence passe à 🟢 quand tous ses critères de validation sont cochés. La validation officielle du brevet reste celle du jury — ce carnet vous montre où vous en êtes et quoi travailler en priorité, avant et après le stage.</p>" +
+      "<p style='font-size:.78rem;color:var(--mut);margin-top:10px;'>Vos coches sont enregistrées sur cet appareil, personne d'autre ne les voit. Une compétence passe à 🟢 quand tous ses critères de validation sont cochés. La validation officielle des brevets aura lieu au stage final de Lifou, fin octobre — ce carnet vous montre où vous en êtes et quoi travailler en priorité pendant les trois mois qui vous en séparent.</p>" +
     "</div>" +
 
     "<h3 style='font-family:Cambria,Georgia,serif;font-size:1.15rem;color:var(--ocean);margin:6px 0 12px;'>Les compétences clés de votre niveau</h3>" +
@@ -678,7 +678,7 @@ function rendreParcours(actif){
 
     "<div class='cartes' style='grid-template-columns:repeat(auto-fill,minmax(320px,1fr));margin-top:20px;'>" +
     "<div class='carte'><h3>📌 Vos priorités pendant le stage</h3>" + liste(p.priorites) + "</div>" +
-    "<div class='carte'><h3>🗓️ Comment utiliser ce parcours</h3><ul style='margin:8px 0 0 18px;color:var(--ink);font-size:.9rem;line-height:1.6;'><li><b>Avant le stage</b> : ouvrez chaque compétence, cochez ce qui est déjà acquis, puis travaillez les exercices des compétences ⚪.</li><li><b>Pendant le stage</b> : chaque cours et chaque passage au tableau correspond à une compétence — repérez laquelle, et cochez les exercices faits en conditions réelles.</li><li><b>Après chaque journée</b> : relisez les critères et cochez honnêtement. Ce qui reste non coché = votre programme d'entraînement pour la suite.</li></ul></div>" +
+    "<div class='carte'><h3>🗓️ Comment utiliser ce parcours</h3><ul style='margin:8px 0 0 18px;color:var(--ink);font-size:.9rem;line-height:1.6;'><li><b>Pendant le stage initial (ce week-end)</b> : chaque cours et chaque passage au tableau correspond à une compétence — repérez laquelle, et cochez les exercices faits en conditions réelles.</li><li><b>Entre les deux stages (août → octobre)</b> : c'est là que le brevet se joue. Travaillez les exercices des compétences ⚪ et 🟠, seul, en binôme ou en séance club, et cochez au fur et à mesure.</li><li><b>Avant le stage final de fin octobre</b> : relisez chaque critère et cochez honnêtement. Ce qui reste non coché = votre programme des dernières semaines. Arrivez à Lifou avec un carnet tout vert.</li></ul></div>" +
     "</div>" +
     "<div class='alerte' style='margin-top:18px;background:var(--ice);color:var(--ink);'><b style='color:var(--ocean);'>À noter : </b>" + p.note + "</div>";
   majProgression(actif);
