@@ -122,6 +122,7 @@
       <button data-s="accueil" onclick="aller('accueil')">Accueil</button>
       <button data-s="parcours" class="actif" onclick="aller('parcours')">Mon parcours</button>
       <button data-s="programme" onclick="aller('programme')">Programme</button>
+      <button data-s="cursus" onclick="aller('cursus')">Cursus & brevets</button>
       <button data-s="supports" onclick="aller('supports')">Supports</button>
       <button data-s="photos" onclick="aller('photos')">Photos & schémas</button>
     </nav>
@@ -228,6 +229,164 @@
         <div class="ligne"><span class="h">18h30</span><span><b>Fin de stage, bilan et clôture</b></span><span class="qui">IRA</span></div>
       </div>
     </section>
+
+    <!-- CURSUS & BREVETS -->
+    <section id="s-cursus" class="section">
+      <div class="kicker">Référentiel fédéral 2019</div>
+      <h2>Cursus, brevets & prérogatives</h2>
+      <p class="intro">Le cursus apnée FFESSM en un coup d'œil : les trois filières de pratiquants, la filière encadrement, les prérequis de chaque brevet et ce qu'il autorise. Synthèse établie d'après les manuels de formation en vigueur (apnee.ffessm.fr) — en cas de doute, les manuels officiels font foi.</p>
+
+      <!-- LOGIGRAMME DU CURSUS -->
+      <h3 style="font-family:Cambria,Georgia,serif;font-size:1.15rem;color:var(--ocean);margin:22px 0 4px;">🗺️ Le logigramme du cursus</h3>
+      <p style="font-size:.85rem;color:var(--mut);margin-bottom:14px;">Chaque flèche = le brevet précédent est le prérequis du suivant. Les passerelles ⇄ relient les filières piscine et eau libre.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;margin-bottom:10px;">
+
+        <div style="background:#fff;border:1px solid #dce7f0;border-radius:14px;padding:16px;">
+          <div style="text-align:center;font-weight:bold;color:#fff;background:var(--teal);border-radius:9px;padding:8px;font-size:.85rem;margin-bottom:12px;">🐣 JEUNES (– de 16 ans)</div>
+          <div style="background:var(--ice);border-left:4px solid var(--teal);border-radius:8px;padding:9px 11px;font-size:.82rem;"><b>Étoiles de mer 1★ 2★ 3★</b><br><span style="color:var(--mut);">moins de 8 ans · 0 à 1 m</span></div>
+          <div style="text-align:center;color:var(--teal);font-size:1rem;margin:4px 0;">▼</div>
+          <div style="background:var(--ice);border-left:4px solid var(--teal);border-radius:8px;padding:9px 11px;font-size:.82rem;"><b>Dauphins</b><br><span style="color:var(--mut);">dès 8 ans · 0 à 10 m</span></div>
+          <div style="text-align:center;color:var(--teal);font-size:1rem;margin:4px 0;">▼</div>
+          <div style="background:#f2f7fb;border:1px dashed #b9cfdf;border-radius:8px;padding:9px 11px;font-size:.78rem;color:var(--mut);">rejoint le cursus adulte<br>(Pass' puis brevets ★)</div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #dce7f0;border-radius:14px;padding:16px;">
+          <div style="text-align:center;font-weight:bold;color:#fff;background:var(--ocean);border-radius:9px;padding:8px;font-size:.85rem;margin-bottom:12px;">🏊 FILIÈRE PISCINE</div>
+          <div style="background:var(--ice);border-left:4px solid var(--ocean);border-radius:8px;padding:9px 11px;font-size:.82rem;"><b>Pass' Apnéiste</b><br><span style="color:var(--mut);">découverte · encadré</span></div>
+          <div style="text-align:center;color:var(--ocean);font-size:1rem;margin:4px 0;">▼</div>
+          <div style="background:var(--ice);border-left:4px solid var(--ocean);border-radius:8px;padding:9px 11px;font-size:.82rem;"><b>Apnéiste Piscine <span style="color:#c8a20a;">★</span></b> <span style="font-size:.7rem;color:var(--mut);">(AP · 1★ CMAS)</span><br><span style="color:var(--mut);">dès 12 ans</span></div>
+          <div style="text-align:center;color:var(--ocean);font-size:1rem;margin:4px 0;">▼</div>
+          <div style="background:var(--ice);border-left:4px solid var(--ocean);border-radius:8px;padding:9px 11px;font-size:.82rem;"><b>Apnéiste Confirmé Piscine <span style="color:#c8a20a;">★★</span></b> <span style="font-size:.7rem;color:var(--mut);">(2★ CMAS)</span><br><span style="color:var(--mut);">RIFAA au cursus</span></div>
+          <div style="margin-top:10px;text-align:center;"><span style="font-size:.72rem;background:#fdeeda;color:#b25f11;padding:3px 10px;border-radius:99px;font-weight:bold;">⇄ passerelles avec l'eau libre</span></div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #dce7f0;border-radius:14px;padding:16px;">
+          <div style="text-align:center;font-weight:bold;color:#fff;background:var(--navy);border-radius:9px;padding:8px;font-size:.85rem;margin-bottom:12px;">🌊 FILIÈRE EAU LIBRE</div>
+          <div style="background:var(--ice);border-left:4px solid var(--navy);border-radius:8px;padding:9px 11px;font-size:.82rem;"><b>Pass' Plongeur Libre</b><br><span style="color:var(--mut);">découverte · espace proche · encadré</span></div>
+          <div style="text-align:center;color:var(--navy);font-size:1rem;margin:4px 0;">▼</div>
+          <div style="background:var(--ice);border-left:4px solid var(--navy);border-radius:8px;padding:9px 11px;font-size:.82rem;"><b>Apnéiste Eau Libre <span style="color:#c8a20a;">★</span></b> <span style="font-size:.7rem;color:var(--mut);">(AEL · 1★ CMAS)</span><br><span style="color:var(--mut);">dès 14 ans</span></div>
+          <div style="text-align:center;color:var(--navy);font-size:1rem;margin:4px 0;">▼</div>
+          <div style="background:var(--ice);border-left:4px solid var(--navy);border-radius:8px;padding:9px 11px;font-size:.82rem;"><b>Apnéiste Confirmé Eau Libre <span style="color:#c8a20a;">★★</span></b> <span style="font-size:.7rem;color:var(--mut);">(ACEL · 2★ CMAS)</span><br><span style="color:var(--mut);">dès 16 ans · RIFAA</span></div>
+          <div style="text-align:center;color:var(--navy);font-size:1rem;margin:4px 0;">▼</div>
+          <div style="background:var(--ice);border-left:4px solid var(--navy);border-radius:8px;padding:9px 11px;font-size:.82rem;"><b>Apnéiste Expert Eau Libre <span style="color:#c8a20a;">★★★</span></b> <span style="font-size:.7rem;color:var(--mut);">(AEEL · 3★ CMAS)</span><br><span style="color:var(--mut);">18 ans · RIFAA · porte d'entrée MEF1</span></div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #dce7f0;border-radius:14px;padding:16px;">
+          <div style="text-align:center;font-weight:bold;color:#fff;background:linear-gradient(90deg,var(--ocean),var(--navy));border-radius:9px;padding:8px;font-size:.85rem;margin-bottom:12px;">🎓 ENCADREMENT</div>
+          <div style="background:#eef7f0;border-left:4px solid #1c7a3d;border-radius:8px;padding:9px 11px;font-size:.82rem;"><b>IE1</b> — Initiateur-Entraîneur 1<br><span style="color:var(--mut);">prérequis : AP ou AEL + RIFAA</span></div>
+          <div style="text-align:center;color:#1c7a3d;font-size:1rem;margin:4px 0;">▼</div>
+          <div style="background:#eef7f0;border-left:4px solid #1c7a3d;border-radius:8px;padding:9px 11px;font-size:.82rem;"><b>IE2</b> — Initiateur-Entraîneur 2<br><span style="color:var(--mut);">= IE1 + ACEL</span></div>
+          <div style="text-align:center;color:#1c7a3d;font-size:1rem;margin:4px 0;">▼</div>
+          <div style="background:#eef7f0;border-left:4px solid #1c7a3d;border-radius:8px;padding:9px 11px;font-size:.82rem;"><b>MEF1</b> — Moniteur 1er degré<br><span style="color:var(--mut);">prérequis : AEEL (3★)</span></div>
+          <div style="text-align:center;color:#1c7a3d;font-size:1rem;margin:4px 0;">▼</div>
+          <div style="background:#eef7f0;border-left:4px solid #1c7a3d;border-radius:8px;padding:9px 11px;font-size:.82rem;"><b>MEF2</b> — Moniteur 2e degré<br><span style="color:var(--mut);">MEF1 ≥ 1 an · permis côtier · juge</span></div>
+          <div style="text-align:center;color:#1c7a3d;font-size:1rem;margin:4px 0;">▼</div>
+          <div style="background:#f2f7fb;border:1px dashed #b9cfdf;border-radius:8px;padding:9px 11px;font-size:.78rem;color:var(--mut);"><b style="color:var(--ink);">IRA / INA</b> — Instructeurs régionaux et nationaux (expertise & jurys)</div>
+        </div>
+      </div>
+      <p style="font-size:.78rem;color:var(--mut);margin-bottom:26px;">⇄ Passerelles : l'AEL donne accès à l'Apnéiste Piscine et inversement les brevets piscine ouvrent l'eau libre ; les cadres E1+ de la commission Technique bénéficient d'une passerelle vers l'IE1 ; des équivalences AIDA ↔ FFESSM existent pour les brevets d'apnéistes.</p>
+
+      <!-- ESPACES D'ÉVOLUTION -->
+      <h3 style="font-family:Cambria,Georgia,serif;font-size:1.15rem;color:var(--ocean);margin:8px 0 4px;">📉 Les espaces d'évolution : qui va où ?</h3>
+      <p style="font-size:.85rem;color:var(--mut);margin-bottom:14px;">Le schéma qui résume tout : à gauche la profondeur, à droite ce que chaque brevet autorise (en autonomie) et ce que chaque cadre peut encadrer.</p>
+      <div style="background:#fff;border:1px solid #dce7f0;border-radius:14px;padding:18px;margin-bottom:8px;overflow-x:auto;">
+        <div style="min-width:560px;">
+          <div style="display:flex;align-items:stretch;gap:14px;">
+            <div style="width:64px;flex-shrink:0;display:flex;flex-direction:column;font-size:.72rem;color:var(--mut);text-align:right;">
+              <div style="height:64px;display:flex;align-items:flex-start;justify-content:flex-end;">0 m —</div>
+              <div style="height:84px;display:flex;align-items:flex-start;justify-content:flex-end;">6 m —</div>
+              <div style="height:104px;display:flex;align-items:flex-start;justify-content:flex-end;">20 m —</div>
+              <div style="height:64px;display:flex;align-items:flex-start;justify-content:flex-end;">40 m —</div>
+            </div>
+            <div style="width:34px;flex-shrink:0;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;">
+              <div style="height:64px;background:#79c1e8;"></div>
+              <div style="height:84px;background:#3d95c9;"></div>
+              <div style="height:104px;background:#166a9c;"></div>
+              <div style="height:64px;background:#0a2942;"></div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;font-size:.8rem;">
+              <div style="height:64px;border-bottom:1px dashed #d7e4ee;display:flex;flex-direction:column;justify-content:center;gap:3px;">
+                <b style="color:var(--ink);">Espace proche · 0 → 6 m</b>
+                <span style="color:var(--mut);">Autonomie (binôme, majeur + RIFAA) : AP ★ (fosse) et AEL ★ · Enseignement : <b style="color:#1c7a3d;">IE1</b> · Pass' &amp; découvertes</span>
+              </div>
+              <div style="height:84px;border-bottom:1px dashed #d7e4ee;display:flex;flex-direction:column;justify-content:center;gap:3px;">
+                <b style="color:var(--ink);">Espace médian · 6 → 20 m</b>
+                <span style="color:var(--mut);">ACEL ★★ : autonomie 15 m (majeur) · 20 m si encadré MEF1 · Enseignement : <b style="color:#1c7a3d;">IE2</b> jusqu'à 15 m · Mineurs : 10 m (8-11 ans), 15 m (12-13), 20 m (14-15)</span>
+              </div>
+              <div style="height:104px;border-bottom:1px dashed #d7e4ee;display:flex;flex-direction:column;justify-content:center;gap:3px;">
+                <b style="color:#fff0;color:var(--ink);">Espace lointain · 20 → 40 m</b>
+                <span style="color:var(--mut);">AEEL ★★★ : autonomie jusqu'à 40 m (binôme, RIFAA) · Encadrement : <b style="color:#1c7a3d;">MEF1</b> jusqu'à 30 m</span>
+              </div>
+              <div style="height:64px;display:flex;flex-direction:column;justify-content:center;gap:3px;">
+                <b style="color:var(--ink);">Au-delà de 40 m</b>
+                <span style="color:var(--mut);">Encadrement <b style="color:#1c7a3d;">MEF2</b> : sans limite de profondeur · compétition, expertise</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:.78rem;color:var(--mut);margin-bottom:26px;">Rappel : au-delà de 6 m ou en milieu naturel, 8 apnéistes maximum par groupe. L'autonomie complète exige d'être majeur, titulaire du RIFAA, et au minimum en binôme.</p>
+
+      <!-- TABLEAU BREVETS -->
+      <h3 style="font-family:Cambria,Georgia,serif;font-size:1.15rem;color:var(--ocean);margin:8px 0 12px;">📋 Les brevets d'apnéistes : prérequis & prérogatives</h3>
+      <div style="overflow-x:auto;margin-bottom:26px;">
+        <table style="width:100%;min-width:680px;border-collapse:collapse;font-size:.82rem;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(10,41,66,.08);">
+          <thead><tr style="background:var(--ocean);color:#fff;text-align:left;">
+            <th style="padding:10px 12px;">Brevet</th><th style="padding:10px 12px;">Âge mini</th><th style="padding:10px 12px;">Prérequis</th><th style="padding:10px 12px;">Prérogatives essentielles</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e8eff5;"><td style="padding:9px 12px;"><b>Pass' Apnéiste</b> / <b>Pass' Plongeur Libre</b></td><td style="padding:9px 12px;">—</td><td style="padding:9px 12px;">licence + certificat médical</td><td style="padding:9px 12px;">Découverte, toujours encadré (piscine / espace proche)</td></tr>
+            <tr style="border-bottom:1px solid #e8eff5;background:#f7fafc;"><td style="padding:9px 12px;"><b>Apnéiste Piscine ★</b> (AP)</td><td style="padding:9px 12px;">12 ans</td><td style="padding:9px 12px;">Pass' conseillé</td><td style="padding:9px 12px;">Pratique encadrée ; autonomie en milieu artificiel ≤ 6 m si majeur + RIFAA + binôme</td></tr>
+            <tr style="border-bottom:1px solid #e8eff5;"><td style="padding:9px 12px;"><b>Apnéiste Confirmé Piscine ★★</b></td><td style="padding:9px 12px;">16 ans</td><td style="padding:9px 12px;">AP ★ · RIFAA au cursus</td><td style="padding:9px 12px;">Autonomie piscine et fosse toutes profondeurs artificielles</td></tr>
+            <tr style="border-bottom:1px solid #e8eff5;background:#f7fafc;"><td style="padding:9px 12px;"><b>Apnéiste Eau Libre ★</b> (AEL)</td><td style="padding:9px 12px;">14 ans</td><td style="padding:9px 12px;">licence + certificat</td><td style="padding:9px 12px;">Toutes disciplines avec encadrant ; autonomie binôme ≤ 6 m (majeur + RIFAA) ; mineurs selon l'âge</td></tr>
+            <tr style="border-bottom:1px solid #e8eff5;"><td style="padding:9px 12px;"><b>Apnéiste Confirmé Eau Libre ★★</b> (ACEL)</td><td style="padding:9px 12px;">16 ans</td><td style="padding:9px 12px;">AEL ou AP · RIFAA (intégrable)</td><td style="padding:9px 12px;">Autonomie ≤ 15 m (majeur, binôme) ; jusqu'à 20 m en groupe avec un MEF1 minimum</td></tr>
+            <tr><td style="padding:9px 12px;"><b>Apnéiste Expert Eau Libre ★★★</b> (AEEL)</td><td style="padding:9px 12px;">18 ans</td><td style="padding:9px 12px;">ACEL + RIFAA</td><td style="padding:9px 12px;">Autonomie binôme ≤ 40 m ; assiste la sécurité ; donne accès au MEF1</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TABLEAU CADRES -->
+      <h3 style="font-family:Cambria,Georgia,serif;font-size:1.15rem;color:var(--ocean);margin:8px 0 12px;">🎓 Les cadres : prérequis & prérogatives</h3>
+      <div style="overflow-x:auto;margin-bottom:26px;">
+        <table style="width:100%;min-width:680px;border-collapse:collapse;font-size:.82rem;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(10,41,66,.08);">
+          <thead><tr style="background:var(--navy);color:#fff;text-align:left;">
+            <th style="padding:10px 12px;">Cadre</th><th style="padding:10px 12px;">Prérequis</th><th style="padding:10px 12px;">Enseigne / encadre</th><th style="padding:10px 12px;">Rôles clés</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e8eff5;"><td style="padding:9px 12px;"><b>IE1</b><br><span style="color:var(--mut);font-size:.75rem;">Initiateur-Entraîneur 1</span></td><td style="padding:9px 12px;">AP ★ ou AEL ★ + RIFAA</td><td style="padding:9px 12px;">Espace proche : ≤ 6 m, piscine et milieu naturel · 8 apnéistes max</td><td style="padding:9px 12px;">Directeur de bassin / de séance · valide les Pass' · guide de randonnée subaquatique</td></tr>
+            <tr style="border-bottom:1px solid #e8eff5;background:#f7fafc;"><td style="padding:9px 12px;"><b>IE2</b><br><span style="color:var(--mut);font-size:.75rem;">Initiateur-Entraîneur 2</span></td><td style="padding:9px 12px;">IE1 + ACEL ★★ (reconnaissance automatique)</td><td style="padding:9px 12px;">Jusqu'à 15 m en milieu naturel, tous niveaux d'apnéistes</td><td style="padding:9px 12px;">Prérogatives de validation élargies · pilier des clubs</td></tr>
+            <tr style="border-bottom:1px solid #e8eff5;"><td style="padding:9px 12px;"><b>MEF1</b><br><span style="color:var(--mut);font-size:.75rem;">Moniteur-Entraîneur Fédéral 1</span></td><td style="padding:9px 12px;">AEEL ★★★ + RIFAA · stage initial + final + examen</td><td style="padding:9px 12px;">Jusqu'à 30 m</td><td style="padding:9px 12px;">Enseigne et valide l'essentiel du cursus apnéiste · forme les initiateurs · siège aux jurys</td></tr>
+            <tr style="border-bottom:1px solid #e8eff5;background:#f7fafc;"><td style="padding:9px 12px;"><b>MEF2</b><br><span style="color:var(--mut);font-size:.75rem;">Moniteur-Entraîneur Fédéral 2</span></td><td style="padding:9px 12px;">MEF1 ≥ 1 an + RIFAA + permis côtier + formation juge · cursus &lt; 3 ans</td><td style="padding:9px 12px;">Sans limite de profondeur</td><td style="padding:9px 12px;">Forme du débutant à l'expert ET les cadres (IE, MEF1) · conçoit les formations · valide RIFAA (cap. 1-4 et 7)</td></tr>
+            <tr><td style="padding:9px 12px;"><b>IRA / INA</b><br><span style="color:var(--mut);font-size:.75rem;">Instructeurs régionaux / nationaux</span></td><td style="padding:9px 12px;">Nommés par la commission (expertise MEF2)</td><td style="padding:9px 12px;">—</td><td style="padding:9px 12px;">Dirigent les stages et examens de cadres · garants de la doctrine fédérale en région</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- RIFAA + MINEURS -->
+      <div class="cartes" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-bottom:8px;">
+        <div class="carte">
+          <h3>⛑️ Le RIFAA — la clé de voûte</h3>
+          <p style="font-size:.85rem;">Réactions et Intervention Face aux Accidents en Apnée : le brevet de secourisme spécifique à l'activité, structuré en <b>7 capacités</b> : communication & surveillance, sauvetage et sortie de l'eau, sécurisation du groupe, coordination de l'intervention, évaluation de la victime, gestes d'urgence (RCP, O₂ 15 L/min), alerte des secours.</p>
+          <p style="font-size:.85rem;margin-top:8px;"><b style="color:var(--ocean);">Obligatoire pour :</b> toute autonomie complète · les brevets Confirmé et Expert · <b>tous les cadres</b> (IE1 → MEF2) — la carte de cadre n'est délivrée qu'avec le RIFAA validé.</p>
+        </div>
+        <div class="carte">
+          <h3>🧒 Profondeurs maximales des mineurs</h3>
+          <ul style="margin:8px 0 0 18px;color:var(--ink);font-size:.88rem;line-height:1.7;">
+            <li><b>Moins de 8 ans</b> : âge ÷ 2 (en mètres)</li>
+            <li><b>8 – 11 ans</b> : 10 m</li>
+            <li><b>12 – 13 ans</b> : 15 m</li>
+            <li><b>14 – 15 ans</b> : 20 m</li>
+            <li><b>16 – 17 ans</b> : selon les prérogatives de l'encadrant</li>
+          </ul>
+          <p style="font-size:.8rem;color:var(--mut);margin-top:8px;">Toujours encadrés : l'autonomie est réservée aux majeurs. Autorisation du responsable légal obligatoire avant 18 ans.</p>
+        </div>
+      </div>
+
+      <div class="alerte" style="margin-top:14px;background:var(--ice);color:var(--ink);">
+        <b style="color:var(--ocean);">Sources & mise à jour :</b> synthèse d'après les manuels de formation de la Commission Nationale d'Apnée (versions en vigueur sur <b>apnee.ffessm.fr</b>) et la page IE1/IE2 du comité FFESSM Nouvelle-Calédonie. Les référentiels évoluent : avant un examen ou une validation, vérifiez toujours la dernière version du manuel concerné.
+      </div>
+    </section>
+
 
     <!-- SUPPORTS -->
     <section id="s-supports" class="section">
