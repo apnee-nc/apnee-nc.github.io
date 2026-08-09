@@ -119,7 +119,8 @@
       <div class="titre">Stage initial IE / MEF1 — Lifou 2026</div>
     </div>
     <nav>
-      <button data-s="accueil" class="actif" onclick="aller('accueil')">Accueil</button>
+      <button data-s="accueil" onclick="aller('accueil')">Accueil</button>
+      <button data-s="parcours" class="actif" onclick="aller('parcours')">Mon parcours</button>
       <button data-s="programme" onclick="aller('programme')">Programme</button>
       <button data-s="supports" onclick="aller('supports')">Supports</button>
       <button data-s="photos" onclick="aller('photos')">Photos</button>
@@ -129,8 +130,17 @@
   </header>
 
   <main>
+    <!-- PARCOURS -->
+    <section id="s-parcours" class="section actif">
+      <div class="kicker">Votre cursus</div>
+      <h2>Mon parcours de formation</h2>
+      <p class="intro">Votre parcours s'affiche automatiquement selon votre cursus — mais tout le monde peut consulter librement les autres parcours par curiosité : cliquez sur les onglets ci-dessous.</p>
+      <div id="parcours-pills" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;"></div>
+      <div id="parcours-contenu"></div>
+    </section>
+
     <!-- ACCUEIL -->
-    <section id="s-accueil" class="section actif">
+    <section id="s-accueil" class="section">
       <div class="hero">
         <div class="b1"></div><div class="b2"></div>
         <div class="kicker" style="color:#8fc5e8;">Bienvenue</div>
@@ -240,7 +250,100 @@ function demarrer(compte){
   document.getElementById('login').style.display='none';
   document.getElementById('app').style.display='block';
   document.getElementById('user-chip').textContent = "👤 " + compte.nom + " · " + compte.role;
-  rendreDocs(); rendrePhotos();
+  PARCOURS_ACTIF = compte.parcours || 'ie2';
+  rendreDocs(); rendrePhotos(); rendreParcours(PARCOURS_ACTIF);
+  aller('parcours');
+}
+
+/* ---------- PARCOURS ---------- */
+let PARCOURS_ACTIF = 'ie2';
+const PARCOURS = {
+  ie2: {
+    nom: "IE2 — Initiateur-Entraîneur", ico: "🌊",
+    objectif: "Devenir capable d'initier, d'encadrer et d'entraîner en apnée dans le cadre de vos prérogatives, en construisant des séances sûres et progressives.",
+    priorites: [
+      "Prérogatives Initiateur/Moniteur et cursus fédéral (samedi 8h30) : connaître exactement ce que vous pouvez encadrer",
+      "Organisation de la sécurité (samedi 10h30) : le cœur de votre futur rôle",
+      "Pédagogie pratique — construction d'une séance (samedi 11h30) : votre épreuve type",
+      "Présentation des sujets au tableau : 20 minutes de présentation + 10 de correction, entraînez-vous à l'oral",
+    ],
+    note: "Le sujet « préparation d'une progression » du dimanche après-midi n'est PAS au programme de votre examen (il l'est pour les MEF1) — assistez-y quand même : c'est votre prochaine étape.",
+    supports: [
+      "Manuel du Moniteur : chapitres pédagogie et organisation de la sécurité",
+      "Physiologie & accidents de l'apnée : partie 2 (accidents) en priorité — les 4 règles de prévention de la syncope doivent être des réflexes",
+      "Les facteurs de la performance : vue d'ensemble (diapos 1 à 5)",
+    ],
+    attendus: [
+      "Construire et présenter une séance complète (objectif, éducatifs, sécurité, critères de réussite)",
+      "Expliquer une règle de sécurité avec le pourquoi physiologique, en mots simples",
+      "Maîtriser le signe « ça ne va pas », le protocole de sortie et la surveillance des 30 secondes",
+    ],
+  },
+  mef1: {
+    nom: "MEF1 — Moniteur Entraîneur Fédéral 1er degré", ico: "🐬",
+    objectif: "Passer de l'animation de séance à la construction de progressions complètes : enseigner, entraîner et évaluer sur l'ensemble du cursus apnéiste.",
+    priorites: [
+      "Tout le programme IE2, plus :",
+      "« Préparation d'une progression » (dimanche 14h) : c'est LE sujet de votre examen final que les IE n'ont pas",
+      "Physiologie approfondie (dimanche 8h15) : les deux horloges O₂/CO₂, le réflexe d'immersion, l'hyperventilation — à savoir réexpliquer",
+      "Construction d'un entraînement en cycle (dimanche 11h30) : périodisation, volume/intensité, tables",
+    ],
+    note: "Objectif de restitution : savoir redessiner de mémoire le graphique PpO₂/PpCO₂ d'une plongée verticale, et traiter n'importe quel accident selon les 5 rubriques (mécanisme, causes, symptômes, conduite à tenir, prévention).",
+    supports: [
+      "Physiologie & accidents de l'apnée : les 60 diapositives, en entier (les notes de chaque diapo contiennent le discours formateur)",
+      "Les facteurs de la performance : support à savoir enseigner",
+      "Manuel du Moniteur : référence complète",
+    ],
+    attendus: [
+      "Présenter un sujet au tableau en 20 minutes, structuré et sans jargon inutile",
+      "Construire une progression sur plusieurs séances avec objectifs intermédiaires",
+      "Corriger un élève avec précision : ce qui va, ce qui manque, comment progresser",
+    ],
+  },
+  mef2: {
+    nom: "MEF2 — Moniteur Entraîneur Fédéral 2e degré", ico: "🦈",
+    objectif: "Devenir formateur de cadres : c'est vous qui présentez les cours de ce stage et qui corrigez les sujets des stagiaires IE2 et MEF1.",
+    priorites: [
+      "Vos interventions à préparer dès le vendredi 14h : réglementation, organisation de la sécurité, physiologie et accidents, paramètres de la performance, construction d'entraînement",
+      "La correction des sujets (10 minutes après chaque présentation de 20') : corriger avec bienveillance ET précision",
+      "La coordination avec l'IRA sur le déroulé des deux journées",
+    ],
+    note: "Vos supports de cours sont dans l'onglet Supports : les notes de chaque diapositive contiennent le minutage et le discours formateur complet — appuyez-vous dessus pour préparer vos interventions.",
+    supports: [
+      "Physiologie & accidents de l'apnée : votre support d'intervention du dimanche matin (2 h)",
+      "Les facteurs de la performance : votre support du dimanche 10h30",
+      "Manuel du Moniteur + Programme officiel : cadre et minutage de vos interventions",
+    ],
+    attendus: [
+      "Animer un cours complet devant le groupe, dans le temps imparti",
+      "Maîtriser les chiffres clés (seuils, débit O₂ 15 L/min, règles de sécurité) sans hésitation",
+      "Faire progresser les futurs cadres par vos corrections : c'est le cœur du rôle de MEF2",
+    ],
+  },
+};
+function rendreParcours(actif){
+  PARCOURS_ACTIF = actif;
+  const pills = document.getElementById('parcours-pills'); pills.innerHTML = "";
+  Object.keys(PARCOURS).forEach(k=>{
+    const p = PARCOURS[k];
+    const b = document.createElement('button');
+    b.textContent = p.ico + " " + k.toUpperCase();
+    b.style.cssText = "padding:10px 20px;border-radius:99px;border:2px solid " + (k===actif ? "var(--ocean)" : "#d8e4ee") + ";background:" + (k===actif ? "var(--ocean)" : "#fff") + ";color:" + (k===actif ? "#fff" : "var(--ink)") + ";font-weight:bold;cursor:pointer;font-size:.95rem;";
+    b.onclick = ()=>rendreParcours(k);
+    pills.appendChild(b);
+  });
+  const p = PARCOURS[actif];
+  const zone = document.getElementById('parcours-contenu');
+  const liste = arr => "<ul style='margin:8px 0 0 18px;color:var(--ink);font-size:.9rem;line-height:1.6;'>" + arr.map(x=>"<li>"+x+"</li>").join("") + "</ul>";
+  zone.innerHTML =
+    "<div class='hero' style='padding:26px 30px;margin-bottom:20px;'><h2 style='font-size:1.4rem;'>" + p.ico + " " + p.nom + "</h2>" +
+    "<p style='margin-top:10px;color:#dcebf5;font-size:.95rem;max-width:75ch;'>" + p.objectif + "</p></div>" +
+    "<div class='cartes' style='grid-template-columns:repeat(auto-fill,minmax(320px,1fr));'>" +
+    "<div class='carte'><h3>📌 Vos priorités pendant le stage</h3>" + liste(p.priorites) + "</div>" +
+    "<div class='carte'><h3>📚 Supports à travailler</h3>" + liste(p.supports) + "<p style='margin-top:10px;'><a href='#' onclick=\"aller('supports');return false;\">→ Ouvrir l'onglet Supports</a></p></div>" +
+    "<div class='carte'><h3>✅ Ce qu'on attendra de vous</h3>" + liste(p.attendus) + "</div>" +
+    "</div>" +
+    "<div class='alerte' style='margin-top:18px;background:var(--ice);color:var(--ink);'><b style='color:var(--ocean);'>À noter : </b>" + p.note + "</div>";
 }
 function aller(s){
   document.querySelectorAll('.section').forEach(x=>x.classList.remove('actif'));
