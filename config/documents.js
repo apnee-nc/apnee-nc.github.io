@@ -38,7 +38,14 @@ const DOCUMENTS = [
   },
   {
     categorie: "referentiels",
-    titre: "⭐ Addendum 2026 — Ce qui a changé depuis 2004",
+    titre: "⭐ Manuel du Moniteur d'apnée — Édition actualisée 2026",
+    description: "LE document de référence du stage : compilation en 8 chapitres du manuel de 2004 (pédagogie), du cadre fédéral actuel (cursus 2019, IE1→MEF2, RIFAA), de la physiologie moderne, des fiches accidents, des facteurs de la performance et de l'organisation des séances. Avec annexe des chiffres à connaître.",
+    fichier: "documents/Manuel_Moniteur_Apnee_2026.docx",
+    type: "DOCX",
+  },
+  {
+    categorie: "referentiels",
+    titre: "Addendum 2026 — Ce qui a changé depuis 2004",
     description: "À lire AVANT le manuel de 2004 : refonte des cursus 2019 (Pass', brevets CMAS piscine/eau libre), filière cadres IE1→MEF2, RIFAA obligatoire, santé et sécurité actuelles, liens vers les textes officiels en vigueur.",
     fichier: "documents/Addendum_actualisation_manuel_2026.docx",
     type: "DOCX",
