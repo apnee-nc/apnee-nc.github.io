@@ -273,6 +273,7 @@ function connexion(e){
 function deconnexion(){ sessionStorage.removeItem('acces'); location.reload(); }
 
 function demarrer(compte){
+  UTILISATEUR = compte.hash;
   document.getElementById('login').style.display='none';
   document.getElementById('app').style.display='block';
   document.getElementById('user-chip').textContent = "👤 " + compte.nom + " · " + compte.role;
@@ -283,10 +284,12 @@ function demarrer(compte){
 
 /* ---------- PARCOURS ---------- */
 let PARCOURS_ACTIF = 'ie2';
+let UTILISATEUR = sessionStorage.getItem('acces') || 'anon';
 const PARCOURS = {
   ie2: {
     nom: "IE2 — Initiateur-Entraîneur", ico: "🌊",
     objectif: "Devenir capable d'initier, d'encadrer et d'entraîner en apnée dans le cadre de vos prérogatives, en construisant des séances sûres et progressives.",
+    examen: "Épreuves visées : pédagogie pratique (construction et animation de séance), pédagogie théorique (sujet au tableau : 20 min + 10 min de correction), sécurité & réglementation. Prérequis : RIFAA validé.",
     priorites: [
       "Prérogatives Initiateur/Moniteur et cursus fédéral (samedi 8h30) : connaître exactement ce que vous pouvez encadrer",
       "Organisation de la sécurité (samedi 10h30) : le cœur de votre futur rôle",
@@ -294,20 +297,88 @@ const PARCOURS = {
       "Présentation des sujets au tableau : 20 minutes de présentation + 10 de correction, entraînez-vous à l'oral",
     ],
     note: "Le sujet « préparation d'une progression » du dimanche après-midi n'est PAS au programme de votre examen (il l'est pour les MEF1) — assistez-y quand même : c'est votre prochaine étape.",
-    supports: [
-      "Manuel du Moniteur : chapitres pédagogie et organisation de la sécurité",
-      "Physiologie & accidents de l'apnée : partie 2 (accidents) en priorité — les 4 règles de prévention de la syncope doivent être des réflexes",
-      "Les facteurs de la performance : vue d'ensemble (diapos 1 à 5)",
-    ],
-    attendus: [
-      "Construire et présenter une séance complète (objectif, éducatifs, sécurité, critères de réussite)",
-      "Expliquer une règle de sécurité avec le pourquoi physiologique, en mots simples",
-      "Maîtriser le signe « ça ne va pas », le protocole de sortie et la surveillance des 30 secondes",
+    competences: [
+      {
+        code: "C1", ico: "📜", titre: "Connaître son cadre et ses prérogatives",
+        attendu: "Vous situez l'IE dans le cursus fédéral 2019 (filières piscine / eau libre / jeunes, filière cadres IE1 → MEF2), vous connaissez vos espaces d'évolution, vos effectifs maximum et les brevets que vous pouvez valider, et vous savez quels documents vérifier avant d'accepter un pratiquant.",
+        exercices: [
+          { t: "La carte du cursus", c: "Redessinez de mémoire le synoptique complet des brevets 2019 : les deux filières apnéistes + la filière cadres. Vérifiez ensuite avec l'Addendum 2026 et corrigez en rouge ce qui manquait.", d: "15 min" },
+          { t: "Questions flash", c: "En binôme, posez-vous 10 questions type : « Un IE peut-il valider un Apnéiste Confirmé ? », « Combien d'apnéistes maximum en milieu naturel ? », « Jusqu'à quelle profondeur ? ». Réponse en 30 secondes maximum, toujours justifiée.", d: "10 min" },
+          { t: "Le contrôle des papiers", c: "Listez de mémoire tous les documents à vérifier avant d'accueillir un nouveau pratiquant (licence, certificat médical selon l'âge et la pratique, autorisation parentale…). Comparez avec le support Réglementation.", d: "5 min" },
+        ],
+        criteres: [
+          "Vous récitez vos prérogatives (espace, effectif, brevets validables) sans aucune hésitation",
+          "Vous expliquez la logique piscine / eau libre du cursus 2019 à quelqu'un qui ne connaît que les « niveaux » d'avant",
+          "Vous savez où vérifier un point de règlement (apnee.ffessm.fr) plutôt que de deviner",
+        ],
+        supports: ["La réglementation de la pratique (Supports → Cours)", "Addendum 2026 + Manuel 2026, chapitre cadre fédéral (Supports → Référentiels)"],
+      },
+      {
+        code: "C2", ico: "🛟", titre: "Organiser la sécurité d'une séance",
+        attendu: "Vous concevez le dispositif de sécurité complet d'une séance — en bassin comme en milieu naturel — et vous le faites vivre : binômes, surveillance active, matériel de secours, plan d'urgence.",
+        exercices: [
+          { t: "La séance sur plan", c: "Dessinez le plan de votre bassin (ou de votre zone en milieu naturel) : placement des binômes, du matériel d'urgence (O₂), de vous-même. Où sont vos angles morts ? Refaites l'exercice avec bouée et pavillon pour l'eau libre.", d: "15 min" },
+          { t: "Que faire si…", c: "Tirez 3 scénarios au hasard (un nageur s'isole, l'orage arrive, vous repérez une hyperventilation avant l'apnée) et énoncez votre décision à voix haute en 1 minute par scénario.", d: "10 min" },
+          { t: "Briefing sécurité chrono", c: "Présentez le briefing sécurité complet d'une séance en 3 minutes maximum, sans rien oublier : binômes, signes, protocole de sortie, surveillance des 30 secondes.", d: "5 min" },
+        ],
+        criteres: [
+          "Votre briefing sécurité tient en 3 minutes et ne rate aucun point vital",
+          "Les 4 règles de prévention de la syncope sont des réflexes que vous citez sans réfléchir",
+          "Vous décrivez le plan d'urgence complet : alerte, sortie de l'eau, oxygène 15 L/min, surveillance",
+        ],
+        supports: ["L'organisation de la sécurité (Supports → Cours)", "Physiologie & accidents — partie 2 (Supports → Cours)"],
+      },
+      {
+        code: "C3", ico: "🧩", titre: "Construire et animer une séance",
+        attendu: "Vous construisez une séance structurée — objectif, échauffement, corps de séance en éducatifs progressifs, retour au calme — avec des critères de réussite observables, puis vous l'animez avec des consignes claires.",
+        exercices: [
+          { t: "La séance en 6 lignes", c: "Pour un sujet donné, écrivez : public, objectif observable, 3 éducatifs progressifs, critère de réussite. Faites-le pour 3 sujets différents : statique débutant, dynamique technique, aisance enfants.", d: "20 min" },
+          { t: "L'éducatif qui rate", c: "Prenez un éducatif trop difficile pour votre élève imaginaire : proposez 2 régressions (plus simple) et 2 progressions (plus dur). C'est le réflexe d'adaptation que le jury veut voir.", d: "10 min" },
+          { t: "Animation à blanc", c: "Animez 5 minutes de séance devant des camarades : consignes en phrases courtes, démonstration, feedback individuel. Demandez-leur ce qu'ils ont compris de l'objectif.", d: "15 min" },
+        ],
+        criteres: [
+          "Votre objectif de séance est observable (« réussir 3 canards sans déséquilibre », pas « travailler le canard »)",
+          "Chaque éducatif a une raison d'être que vous savez justifier",
+          "Vos consignes tiennent en une phrase courte chacune",
+        ],
+        supports: ["Pédagogie de la pratique (Supports → Cours)", "Manuel 2026, chapitre pédagogie pratique (Supports → Référentiels)"],
+      },
+      {
+        code: "C4", ico: "🗣️", titre: "Présenter un sujet théorique au tableau",
+        attendu: "Vous présentez un sujet simple pendant 20 minutes (suivies de 10 minutes de correction) : plan annoncé, tableau structuré, un schéma central, vocabulaire adapté au public.",
+        exercices: [
+          { t: "Le plan en 3 minutes", c: "Tirez un sujet au sort (flottabilité, hyperventilation, matériel, essoufflement…) : posez au brouillon en 3 minutes l'accroche, le plan en 3 parties et le schéma central. Répétez avec 3 sujets — c'est la vitesse de structuration qui compte.", d: "3 × 5 min" },
+          { t: "Le schéma qui parle", c: "Entraînez-vous à dessiner au tableau les 2-3 schémas types de vos sujets (poumons et pressions, courbe O₂/CO₂ simplifiée) en expliquant en même temps que vous dessinez.", d: "15 min" },
+          { t: "20 minutes chrono", c: "Présentation complète chronométrée devant un camarade qui note trois choses : la structure, la gestion du temps, la clarté. Débriefez à chaud.", d: "30 min" },
+        ],
+        criteres: [
+          "Vous tenez 20 minutes à ±2 minutes sans regarder vos notes en permanence",
+          "Il y a toujours un schéma au tableau à la fin de votre exposé",
+          "Une question imprévue ne vous déstabilise pas — y compris répondre « je vérifie et je reviens vers vous »",
+        ],
+        supports: ["Physiologie & accidents — les notes de chaque diapo contiennent le discours formateur (Supports → Cours)", "Les facteurs de la performance (Supports → Cours)"],
+      },
+      {
+        code: "C5", ico: "🚨", titre: "Prévenir et gérer les accidents",
+        attendu: "Vous reconnaissez et traitez les accidents de l'apnée — continuum hypoxique (PCM/samba → syncope), barotraumatismes, essoufflement, œdème d'immersion — selon les 5 rubriques, et vous enchaînez les gestes du RIFAA.",
+        exercices: [
+          { t: "L'accident en 5 rubriques", c: "Tirez un accident au sort et traitez-le au tableau en 8 minutes : mécanisme, causes, symptômes, conduite à tenir, prévention. Recommencez jusqu'à ce que la structure soit automatique.", d: "8 min / accident" },
+          { t: "Le scénario syncope", c: "En binôme au bord de l'eau (ou à sec) : l'un simule une samba en surface, l'autre enchaîne le sauvetage complet — saisie, voies aériennes hors de l'eau, sortie, bilan, oxygène, alerte.", d: "20 min" },
+          { t: "Vrai / Faux prévention", c: "10 affirmations type « hyperventiler prépare mieux l'apnée », « une syncope, ça se sent venir » : répondez et corrigez avec le pourquoi physiologique en 2 phrases.", d: "10 min" },
+        ],
+        criteres: [
+          "Les 5 rubriques sortent sans support pour chaque accident majeur",
+          "Vos gestes RIFAA s'enchaînent sans temps mort ni hésitation",
+          "Vous expliquez le continuum hypoxique et pourquoi la victime ne se sent pas partir",
+        ],
+        supports: ["Physiologie & accidents — partie 2, les 9 fiches accidents (Supports → Cours)", "Vidéos RIFA de sauvetage (auprès des formateurs, clé USB)"],
+      },
     ],
   },
   mef1: {
     nom: "MEF1 — Moniteur Entraîneur Fédéral 1er degré", ico: "🐬",
     objectif: "Passer de l'animation de séance à la construction de progressions complètes : enseigner, entraîner et évaluer sur l'ensemble du cursus apnéiste.",
+    examen: "Épreuves visées : pédagogie théorique (cours de 20 min niveau cadre), pédagogie pratique, construction d'une progression (l'épreuve reine, absente de l'examen IE), réglementation, physiologie et accidents. Prérequis : RIFAA validé.",
     priorites: [
       "Tout le programme IE2, plus :",
       "« Préparation d'une progression » (dimanche 14h) : c'est LE sujet de votre examen final que les IE n'ont pas",
@@ -315,38 +386,234 @@ const PARCOURS = {
       "Construction d'un entraînement en cycle (dimanche 11h30) : périodisation, volume/intensité, tables",
     ],
     note: "Objectif de restitution : savoir redessiner de mémoire le graphique PpO₂/PpCO₂ d'une plongée verticale, et traiter n'importe quel accident selon les 5 rubriques (mécanisme, causes, symptômes, conduite à tenir, prévention).",
-    supports: [
-      "Physiologie & accidents de l'apnée : les 60 diapositives, en entier (les notes de chaque diapo contiennent le discours formateur)",
-      "Les facteurs de la performance : support à savoir enseigner",
-      "Manuel du Moniteur : référence complète",
-    ],
-    attendus: [
-      "Présenter un sujet au tableau en 20 minutes, structuré et sans jargon inutile",
-      "Construire une progression sur plusieurs séances avec objectifs intermédiaires",
-      "Corriger un élève avec précision : ce qui va, ce qui manque, comment progresser",
+    competences: [
+      {
+        code: "C1", ico: "🫁", titre: "Maîtriser la physiologie pour l'enseigner",
+        attendu: "Vous ne récitez plus la physiologie : vous l'enseignez. Les deux horloges O₂/CO₂, le réflexe d'immersion, les échanges gazeux et la mécanique des pressions n'ont plus de zone floue, et vous savez les expliquer à n'importe quel public.",
+        exercices: [
+          { t: "Les deux horloges", c: "Redessinez de mémoire les courbes PpO₂ / PpCO₂ d'une apnée normale puis d'une apnée après hyperventilation. Expliquez à voix haute la fenêtre de syncope : pourquoi le signal d'alarme arrive trop tard.", d: "15 min" },
+          { t: "La plongée verticale", c: "Tracez l'évolution des pressions partielles en descente et en remontée (Boyle-Mariotte + Dalton) et montrez pourquoi la syncope frappe dans les derniers mètres de la remontée.", d: "15 min" },
+          { t: "Vulgarisation express", c: "Expliquez le réflexe d'immersion en 2 minutes, trois fois de suite, à trois publics différents : un enfant de 10 ans, un débutant adulte, un futur initiateur. Le contenu change, la justesse ne change pas.", d: "10 min" },
+        ],
+        criteres: [
+          "Les schémas clés (courbes O₂/CO₂, plongée verticale) sortent exacts, de mémoire, au tableau",
+          "Vous passez du registre vulgarisé au registre expert sans dire de choses fausses",
+          "Chaque règle de sécurité que vous citez est reliée à son mécanisme physiologique",
+        ],
+        supports: ["Physiologie & accidents — partie 1 complète, avec les notes formateur (Supports → Cours)", "Manuel 2026, chapitre physiologie (Supports → Référentiels)"],
+      },
+      {
+        code: "C2", ico: "🧭", titre: "Construire une progression — l'épreuve reine",
+        attendu: "À partir d'un public et d'un objectif final, vous bâtissez une progression sur plusieurs séances : prérequis, objectifs intermédiaires franchissables, critères d'évaluation à chaque étape, remédiations prévues. C'est LE sujet qui distingue le MEF1 de l'initiateur.",
+        exercices: [
+          { t: "La progression type", c: "Sujet d'entraînement : « amener un débutant au Pass'Apnéiste en 6 séances ». Posez sur une page : prérequis, objectif de chaque séance, critères d'évaluation, et ce que vous faites si un élève bloque à la séance 3. Refaites ensuite avec d'autres objectifs (2★, aisance profondeur…).", d: "45 min" },
+          { t: "Le fil rouge", c: "Prenez UNE compétence (le canard, le relâchement, la gestion du CO₂) et déclinez-la en une progression d'au moins 8 éducatifs, du plus simple au plus complexe. Chaque marche doit être franchissable depuis la précédente.", d: "20 min" },
+          { t: "La progression cassée", c: "Échangez vos progressions en binôme : chacun cherche la « marche trop haute » chez l'autre et propose la correction. C'est exactement le regard du jury.", d: "15 min" },
+        ],
+        criteres: [
+          "Chaque séance de votre progression a un objectif observable et évaluable",
+          "Aucune marche n'est infranchissable — et vous avez prévu la remédiation si elle l'est quand même",
+          "L'évaluation est pensée dès la conception, pas ajoutée à la fin",
+        ],
+        supports: ["Construction de progressions + la fiche express (Supports → Entraînement)", "Le sujet du dimanche 14h au stage — votre répétition générale"],
+      },
+      {
+        code: "C3", ico: "📈", titre: "Construire un entraînement en cycles",
+        attendu: "Vous planifiez l'entraînement d'un apnéiste dans la durée : macro-cycles et méso-cycles, alternance volume/intensité, surcompensation et récupération, périodisation sur le trimestre et l'année.",
+        exercices: [
+          { t: "Le trimestre sur une page", c: "Planifiez un trimestre complet pour un apnéiste confirmé qui vise une performance en dynamique : phases, dosage volume/intensité, semaines de récupération. Appuyez-vous sur les schémas de la galerie (pyramide, périodisation, cycles).", d: "30 min" },
+          { t: "La séance dans le cycle", c: "Prenez une séance quelconque et situez-la : dans quel cycle est-elle, que travaillait-on la semaine d'avant, que travaillera-t-on après, et pourquoi cet ordre.", d: "10 min" },
+          { t: "Les tables expliquées", c: "Construisez une table CO₂ et une table O₂ adaptées à un élève précis (niveau, temps d'apnée de référence) en justifiant chaque paramètre : nombre de répétitions, récupérations, évolution.", d: "15 min" },
+        ],
+        criteres: [
+          "Votre vocabulaire est précis : volume, intensité, récupération, surcompensation, foncier, spécifique",
+          "Votre périodisation est cohérente — on voit la logique en lisant la page",
+          "Vous adaptez le plan à l'élève réel, pas l'inverse",
+        ],
+        supports: ["Construction de l'entraînement (Supports → Entraînement)", "Les 7 schémas stratégiques (Photos & schémas)", "Mémo entraînement à remettre aux stagiaires (Supports → Entraînement)"],
+      },
+      {
+        code: "C4", ico: "🗣️", titre: "Enseigner la théorie — le cours de 20 minutes",
+        attendu: "Votre exposé de 20 minutes est un vrai cours de niveau cadre : plan annoncé et tenu, schéma central construit au tableau, exemples concrets, gestion du temps autonome, réponses honnêtes aux questions.",
+        exercices: [
+          { t: "Sujets en boucle", c: "Établissez la liste des sujets probables (chaque accident, physiologie, réglementation, entraînement) et produisez un plan détaillé par jour d'ici l'examen. La structuration doit devenir un automatisme.", d: "15 min / jour" },
+          { t: "La présentation filmée", c: "Filmez-vous pendant 20 minutes avec votre téléphone. Revisionnez en notant : les tics de langage, le temps passé dos à la salle, la lisibilité du tableau. Refilmez une semaine plus tard et comparez.", d: "30 min" },
+          { t: "La question piège", c: "Après votre exposé, un camarade vous pose 3 questions difficiles dont une à laquelle vous ne savez pas répondre. Entraînez la réponse honnête : reformuler, répondre à ce qu'on sait, et assumer « je vérifie et je reviens vers vous ».", d: "10 min" },
+        ],
+        criteres: [
+          "Le plan est annoncé au début, visible au tableau, et tenu jusqu'au bout",
+          "Vous gérez le temps seul, sans qu'on vous fasse signe",
+          "Vos exemples viennent du vécu de bassin et d'eau libre, pas seulement du manuel",
+        ],
+        supports: ["Physiologie & accidents — les 60 diapos avec le discours formateur en notes (Supports → Cours)", "Les facteurs de la performance — support à savoir enseigner (Supports → Cours)"],
+      },
+      {
+        code: "C5", ico: "🎯", titre: "Évaluer et corriger un élève",
+        attendu: "Vous observez avec une grille de critères, vous corrigez avec précision et bienveillance, et chaque correction se termine par un prochain pas concret. Au stage, vous vous entraînez sur les présentations des autres stagiaires.",
+        exercices: [
+          { t: "La grille d'observation", c: "Pour un exercice donné (canard, statique, présentation orale), construisez une grille de 3 à 5 critères observables. Utilisez-la réellement sur un camarade et vérifiez : vos critères étaient-ils observables ou des impressions ?", d: "15 min" },
+          { t: "La correction en 2 minutes", c: "Entraînez le format : ce qui est acquis → ce qui manque (précis, factuel) → le prochain pas. Deux minutes maximum par correction, chronométrées.", d: "10 min" },
+          { t: "La correction de copie", c: "Au stage, corrigez mentalement chaque présentation d'un autre stagiaire avec votre grille, puis comparez avec la correction du MEF2. Les écarts sont vos axes de progrès.", d: "au stage" },
+        ],
+        criteres: [
+          "Vos corrections sont factuelles (« le rythme de palmage casse à mi-longueur ») et jamais vagues (« c'était bien »)",
+          "Chaque élève ressort avec UN prochain pas concret",
+          "Vous distinguez l'essentiel (sécurité, structure) du détail cosmétique",
+        ],
+        supports: ["Pédagogie de la pratique (Supports → Cours)", "Les corrections des MEF2 pendant le stage — observez leur méthode"],
+      },
+      {
+        code: "C6", ico: "📜", titre: "Réglementation et organisation avancées",
+        attendu: "Au-delà des prérogatives de base : vous organisez une sortie complète en autonomie (direction de séance), vous connaissez les responsabilités juridiques de l'encadrant et le fonctionnement des jurys d'examen.",
+        exercices: [
+          { t: "Le directeur de séance", c: "Décrivez l'organisation complète d'une sortie eau libre : rôles de chacun, effectifs par cadre, matériel obligatoire (O₂, VHF, pavillon…), conditions météo d'annulation, papiers à jour. De mémoire d'abord, puis vérifiez.", d: "15 min" },
+          { t: "Le cas juridique", c: "Étudiez 2 cas : un accident avec certificat médical périmé ; un encadrement hors prérogatives. Qui est responsable ? Le club, le cadre, le président ? Argumentez puis vérifiez dans le support réglementation.", d: "15 min" },
+          { t: "Cursus sans faute", c: "Récitez le synoptique 2019 complet et, pour chaque brevet, qui peut le valider. Zéro erreur exigée : c'est une question d'examen classique.", d: "10 min" },
+        ],
+        criteres: [
+          "Zéro erreur sur les prérogatives de chaque niveau de cadre",
+          "Votre organisation de sortie est complète de mémoire, matériel compris",
+          "Vous savez dire « je vérifie sur apnee.ffessm.fr » plutôt que d'inventer",
+        ],
+        supports: ["La réglementation de la pratique (Supports → Cours)", "Addendum 2026 — les liens vers les textes en vigueur (Supports → Référentiels)"],
+      },
     ],
   },
   mef2: {
     nom: "MEF2 — Moniteur Entraîneur Fédéral 2e degré", ico: "🦈",
     objectif: "Devenir formateur de cadres : c'est vous qui présentez les cours de ce stage et qui corrigez les sujets des stagiaires IE2 et MEF1.",
+    examen: "Rôle visé : concevoir et animer des formations de cadres, évaluer et faire progresser les stagiaires IE et MEF1, siéger dans les jurys. Ce stage EST votre terrain d'entraînement : chaque cours animé et chaque correction donnée compte.",
     priorites: [
       "Vos interventions à préparer dès le vendredi 14h : réglementation, organisation de la sécurité, physiologie et accidents, paramètres de la performance, construction d'entraînement",
       "La correction des sujets (10 minutes après chaque présentation de 20') : corriger avec bienveillance ET précision",
       "La coordination avec l'IRA sur le déroulé des deux journées",
     ],
     note: "Vos supports de cours sont dans l'onglet Supports : les notes de chaque diapositive contiennent le minutage et le discours formateur complet — appuyez-vous dessus pour préparer vos interventions.",
-    supports: [
-      "Physiologie & accidents de l'apnée : votre support d'intervention du dimanche matin (2 h)",
-      "Les facteurs de la performance : votre support du dimanche 10h30",
-      "Manuel du Moniteur + Programme officiel : cadre et minutage de vos interventions",
-    ],
-    attendus: [
-      "Animer un cours complet devant le groupe, dans le temps imparti",
-      "Maîtriser les chiffres clés (seuils, débit O₂ 15 L/min, règles de sécurité) sans hésitation",
-      "Faire progresser les futurs cadres par vos corrections : c'est le cœur du rôle de MEF2",
+    competences: [
+      {
+        code: "C1", ico: "🎓", titre: "Animer un cours de formation de cadres",
+        attendu: "Vous animez un cours long (jusqu'à 2 h) devant de futurs cadres : minutage maîtrisé, interactions provoquées, chiffres clés sans notes, et capacité à condenser si le programme dérape.",
+        exercices: [
+          { t: "Le minutage", c: "Reprenez vos supports d'intervention (les notes contiennent le discours) et posez le minutage section par section : où sont les moments d'interaction, quelles questions vous poserez à la salle, où vous pouvez accélérer.", d: "30 min / cours" },
+          { t: "La répétition générale", c: "Déroulez votre intervention à voix haute, une fois, en entier, chronomètre en main. C'est long — c'est exactement pour ça qu'il faut le faire une fois avant le jour J.", d: "durée du cours" },
+          { t: "Le plan B", c: "Préparez la version 30 minutes de votre cours de 2 heures : si le programme du stage dérape, qu'est-ce qui est absolument essentiel ? Cet exercice révèle ce que vous considérez vraiment comme le cœur du sujet.", d: "20 min" },
+        ],
+        criteres: [
+          "Vous tenez le temps imparti sans sacrifier la fin du cours",
+          "La salle participe — vous posez des questions au lieu de dérouler en monologue",
+          "Les chiffres clés (seuils, 15 L/min, 30 s, effectifs) sortent sans regarder vos notes",
+        ],
+        supports: ["Physiologie & accidents — votre intervention du dimanche matin (Supports → Cours)", "Les facteurs de la performance — votre support du dimanche 10h30 (Supports → Cours)"],
+      },
+      {
+        code: "C2", ico: "🧑‍🏫", titre: "Corriger et évaluer des stagiaires cadres",
+        attendu: "Vos 10 minutes de correction après chaque présentation font réellement progresser le stagiaire : structurées, étalonnées avec les autres correcteurs, jamais humiliantes, jamais complaisantes.",
+        exercices: [
+          { t: "La grille MEF", c: "Avant le stage, construisez votre grille de correction des présentations : structure du plan, exactitude du fond, qualité du tableau, gestion du temps, adaptation au public. 5 lignes suffisent — mais les mêmes pour tous.", d: "20 min" },
+          { t: "La correction en 10 minutes", c: "Entraînez la structure type : points forts (2 min) → 2 ou 3 axes de progrès précis et factuels (5-6 min) → prochain pas et encouragement (2 min). Jamais plus de 3 axes : au-delà, rien n'est retenu.", d: "15 min" },
+          { t: "L'étalonnage", c: "Au stage, comparez vos corrections avec celles de l'autre MEF2 et de l'IRA sur la même prestation. Là où vous divergez, discutez : c'est ainsi qu'un jury s'harmonise.", d: "au stage" },
+        ],
+        criteres: [
+          "Le stagiaire corrigé sait exactement quoi travailler en sortant — demandez-lui pour vérifier",
+          "Vos corrections utilisent la même grille pour tous les stagiaires",
+          "Vous savez corriger un contenu faux sur le fond sans casser la dynamique du stagiaire",
+        ],
+        supports: ["Le programme officiel — les créneaux de correction (Supports → Programme)", "Manuel 2026, chapitre métier de cadre (Supports → Référentiels)"],
+      },
+      {
+        code: "C3", ico: "🏗️", titre: "Concevoir une formation",
+        attendu: "Vous raisonnez en ingénieur de formation : partir des compétences visées et de l'évaluation, puis construire les contenus — et non l'inverse. Objectifs pédagogiques observables, alignement objectifs-contenus-évaluation, timing réaliste.",
+        exercices: [
+          { t: "L'ingénierie inverse", c: "Partez du référentiel de l'examen IE : construisez sur papier le déroulé d'un week-end de formation qui couvre toutes les compétences exigées. Comparez ensuite avec le programme réel de ce stage : qu'ont choisi l'IRA et les organisateurs, et pourquoi ?", d: "40 min" },
+          { t: "L'objectif pédagogique", c: "Reformulez 5 intitulés de cours en objectifs observables : « À l'issue de la séance, le stagiaire sera capable de… ». Bannissez « connaître » et « comprendre » au profit de verbes observables (citer, construire, démontrer, corriger).", d: "15 min" },
+          { t: "L'évaluation d'abord", c: "Pour un module donné, définissez l'évaluation AVANT le contenu : que doit réussir le stagiaire à la fin ? Ajustez ensuite le contenu pour y mener. Constatez ce que cette inversion change.", d: "20 min" },
+        ],
+        criteres: [
+          "Vos objectifs sont observables et évaluables — chaque verbe le prouve",
+          "Contenus et évaluation sont alignés sur les objectifs annoncés",
+          "Votre timing prévoit l'imprévu (les questions, le matériel récalcitrant, le retard du matin)",
+        ],
+        supports: ["Le programme officiel du stage — un exemple réel d'ingénierie (Supports → Programme)", "Construction de progressions — la même logique, appliquée aux cadres (Supports → Entraînement)"],
+      },
+      {
+        code: "C4", ico: "📚", titre: "Maîtrise experte des référentiels",
+        attendu: "Vous êtes la référence technique du stage : chiffres clés instantanés, référentiels fédéraux à jour, et capacité à distinguer la règle fédérale de l'usage local.",
+        exercices: [
+          { t: "Les chiffres en rafale", c: "Faites-vous interroger en rafale : profondeurs par niveau, effectifs par cadre, débit O₂ (15 L/min), surveillance en surface (30 s), récupération (≥ 2× le temps d'apnée)… Réponse immédiate exigée — un cadre qui hésite sur un chiffre de sécurité perd la salle.", d: "10 min / jour" },
+          { t: "La veille fédérale", c: "Parcourez apnee.ffessm.fr (niveaux, RIFAA, examens) : notez 3 éléments qui ont évolué depuis vos propres formations et mettez à jour vos cours en conséquence. La veille est une compétence de MEF2, pas une option.", d: "30 min" },
+          { t: "Le manuel annoté", c: "Relisez le Manuel 2026 avec trois couleurs : ce que je dois transmettre au stage / ce que je dois vérifier / ce que je dois approfondir. Votre exemplaire annoté devient votre outil de formateur.", d: "1 h" },
+        ],
+        criteres: [
+          "Aucune hésitation sur un chiffre de sécurité ou une prérogative",
+          "Vos supports de cours sont alignés sur les référentiels en vigueur, pas sur vos souvenirs",
+          "Quand vous ne savez pas, vous le dites et vous savez où vérifier",
+        ],
+        supports: ["Manuel 2026 + Addendum — vos références (Supports → Référentiels)", "apnee.ffessm.fr — la source officielle"],
+      },
+      {
+        code: "C5", ico: "🤝", titre: "Coordonner le stage avec l'IRA",
+        attendu: "Le stage tient ses horaires, l'équipe d'encadrement parle d'une seule voix, et chaque stagiaire fait l'objet d'un suivi individuel partagé entre les cadres.",
+        exercices: [
+          { t: "Le déroulé partagé", c: "Dès le vendredi, construisez avec l'IRA le tableau de bord des deux journées : qui intervient, quand, avec quel matériel, et le plan B en cas de retard ou de météo défavorable.", d: "vendredi 14h" },
+          { t: "Le débrief du soir", c: "Chaque soir, 15 minutes entre cadres : ce qui a marché, ce qu'on ajuste demain, et les stagiaires à suivre de plus près. Court, systématique, sans procès.", d: "15 min / soir" },
+          { t: "La passation", c: "En fin de stage, identifiez pour chaque stagiaire IE2 et MEF1 : UN point fort et UN axe prioritaire, à transmettre à l'IRA pour la suite de leur cursus. C'est ce suivi qui fait la qualité d'une école de cadres.", d: "fin de stage" },
+        ],
+        criteres: [
+          "Le programme des deux jours est tenu — ou les arbitrages sont décidés en équipe, pas subis",
+          "Aucun stagiaire ne reçoit deux discours contradictoires de deux cadres",
+          "Chaque stagiaire repart avec un axe de travail identifié et transmis",
+        ],
+        supports: ["Le programme officiel + le récap organisation (Supports → Programme)", "L'équipe : stagiaires et instructeur (Supports → Programme)"],
+      },
     ],
   },
 };
+
+/* --- Carnet de validation (enregistré dans le navigateur de chaque stagiaire) --- */
+function cleCarnet(parcours, code, type, i){ return "apnee-" + UTILISATEUR.slice(0,12) + "-" + parcours + "-" + code + "-" + type + i; }
+function estCoche(parcours, code, type, i){ try { return localStorage.getItem(cleCarnet(parcours, code, type, i)) === "1"; } catch(e){ return false; } }
+function cocher(parcours, code, type, i, on){
+  try { on ? localStorage.setItem(cleCarnet(parcours, code, type, i), "1") : localStorage.removeItem(cleCarnet(parcours, code, type, i)); } catch(e){}
+  majCompetence(parcours, code); majProgression(parcours);
+}
+function etatCompetence(parcours, c){
+  const nbCr = c.criteres.length;
+  const crOk = c.criteres.filter((_,i)=>estCoche(parcours, c.code, "cr", i)).length;
+  const exOk = c.exercices.filter((_,i)=>estCoche(parcours, c.code, "ex", i)).length;
+  if (crOk === nbCr) return { badge:"🟢 Validée", cls:"ok", crOk, nbCr, exOk };
+  if (crOk > 0 || exOk > 0) return { badge:"🟠 En cours", cls:"encours", crOk, nbCr, exOk };
+  return { badge:"⚪ À travailler", cls:"todo", crOk, nbCr, exOk };
+}
+function badgeHtml(e){
+  const col = e.cls==="ok" ? "#1c7a3d" : (e.cls==="encours" ? "#b25f11" : "var(--mut)");
+  const bg  = e.cls==="ok" ? "#e2f5e9" : (e.cls==="encours" ? "#fdeeda" : "#eef3f7");
+  return "<span style='font-size:.74rem;font-weight:bold;color:"+col+";background:"+bg+";padding:4px 10px;border-radius:99px;white-space:nowrap;'>" + e.badge + " · " + e.crOk + "/" + e.nbCr + "</span>";
+}
+function majCompetence(parcours, code){
+  const p = PARCOURS[parcours]; const c = p.competences.find(x=>x.code===code); if(!c) return;
+  const el = document.getElementById('badge-' + parcours + '-' + code);
+  if (el) el.innerHTML = badgeHtml(etatCompetence(parcours, c));
+}
+function majProgression(parcours){
+  const p = PARCOURS[parcours]; if(!p) return;
+  let totCr = 0, okCr = 0, valid = 0;
+  p.competences.forEach(c=>{
+    const e = etatCompetence(parcours, c);
+    totCr += e.nbCr; okCr += e.crOk;
+    if (e.cls === "ok") valid++;
+  });
+  const barre = document.getElementById('prog-barre');
+  const texte = document.getElementById('prog-texte');
+  if (barre) barre.style.width = (totCr ? Math.round(100 * okCr / totCr) : 0) + "%";
+  if (texte) texte.textContent = valid + " / " + p.competences.length + " compétences validées · " + okCr + "/" + totCr + " critères";
+  const carnet = document.getElementById('carnet-lignes');
+  if (carnet) carnet.innerHTML = p.competences.map(c=>{
+    const e = etatCompetence(parcours, c);
+    return "<div style='display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px dashed #e4edf4;font-size:.85rem;'>" +
+      "<span>" + c.ico + "</span><span style='flex:1;color:var(--ink);'>" + c.code + " · " + c.titre + "</span>" + badgeHtml(e) + "</div>";
+  }).join("");
+}
+
 function rendreParcours(actif){
   PARCOURS_ACTIF = actif;
   const pills = document.getElementById('parcours-pills'); pills.innerHTML = "";
@@ -361,16 +628,62 @@ function rendreParcours(actif){
   const p = PARCOURS[actif];
   const zone = document.getElementById('parcours-contenu');
   const liste = arr => "<ul style='margin:8px 0 0 18px;color:var(--ink);font-size:.9rem;line-height:1.6;'>" + arr.map(x=>"<li>"+x+"</li>").join("") + "</ul>";
+  const cb = (parc, code, type, i, coche) =>
+    "<input type='checkbox' " + (coche ? "checked " : "") + "onclick=\"event.stopPropagation()\" onchange=\"cocher('"+parc+"','"+code+"','"+type+"',"+i+",this.checked)\" style='width:17px;height:17px;accent-color:var(--ocean);cursor:pointer;flex-shrink:0;margin-top:2px;'>";
+
+  const blocsComp = p.competences.map(c => {
+    const etat = etatCompetence(actif, c);
+    const exos = c.exercices.map((e,i) =>
+      "<li style='margin-bottom:10px;display:flex;gap:10px;align-items:flex-start;'>" + cb(actif, c.code, "ex", i, estCoche(actif, c.code, "ex", i)) +
+      "<div><b style='color:var(--ocean);'>" + e.t + "</b>" +
+      (e.d ? " <span style='font-size:.72rem;background:var(--ice);color:var(--teal);padding:2px 8px;border-radius:99px;font-weight:bold;white-space:nowrap;'>⏱ " + e.d + "</span>" : "") +
+      "<br><span style='color:var(--ink);'>" + e.c + "</span></div></li>").join("");
+    const crit = c.criteres.map((x,i) =>
+      "<li style='margin-bottom:7px;display:flex;gap:10px;align-items:flex-start;'>" + cb(actif, c.code, "cr", i, estCoche(actif, c.code, "cr", i)) +
+      "<span style='color:var(--ink);'>" + x + "</span></li>").join("");
+    return (
+      "<details class='comp' style='background:#fff;border:1px solid #dce7f0;border-radius:14px;margin-bottom:12px;overflow:hidden;'>" +
+      "<summary style='display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;list-style:none;flex-wrap:wrap;'>" +
+        "<span style='font-size:1.35rem;'>" + c.ico + "</span>" +
+        "<span style='flex:1;min-width:180px;'><b style='color:var(--navy);'>" + c.code + " · " + c.titre + "</b></span>" +
+        "<span id='badge-" + actif + "-" + c.code + "'>" + badgeHtml(etat) + "</span>" +
+        "<span style='color:var(--mut);font-size:.85rem;'>▾</span>" +
+      "</summary>" +
+      "<div style='padding:4px 20px 18px;border-top:1px solid #edf3f8;'>" +
+        "<p style='font-size:.88rem;color:var(--ink);line-height:1.55;background:var(--ice);padding:12px 14px;border-radius:10px;margin:12px 0;'><b style='color:var(--ocean);'>🎯 Ce qui est attendu — </b>" + c.attendu + "</p>" +
+        "<h4 style='font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--teal);margin:14px 0 8px;'>🏋️ Exercices — cochez quand c'est fait</h4>" +
+        "<ol style='margin:0 0 0 4px;font-size:.88rem;line-height:1.55;list-style:none;padding:0;'>" + exos + "</ol>" +
+        "<h4 style='font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--teal);margin:16px 0 8px;'>✅ Critères de validation — cochez quand c'est VRAI (soyez honnête, c'est votre brevet)</h4>" +
+        "<ul style='margin:0 0 0 4px;font-size:.88rem;line-height:1.55;list-style:none;padding:0;'>" + crit + "</ul>" +
+        "<h4 style='font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--teal);margin:16px 0 2px;'>📚 Où travailler</h4>" + liste(c.supports) +
+      "</div></details>");
+  }).join("");
+
   zone.innerHTML =
     "<div class='hero' style='padding:26px 30px;margin-bottom:20px;'><h2 style='font-size:1.4rem;'>" + p.ico + " " + p.nom + "</h2>" +
-    "<p style='margin-top:10px;color:#dcebf5;font-size:.95rem;max-width:75ch;'>" + p.objectif + "</p></div>" +
-    "<div class='cartes' style='grid-template-columns:repeat(auto-fill,minmax(320px,1fr));'>" +
+    "<p style='margin-top:10px;color:#dcebf5;font-size:.95rem;max-width:75ch;'>" + p.objectif + "</p>" +
+    "<p style='margin-top:12px;color:#aacfe6;font-size:.84rem;max-width:80ch;border-top:1px solid rgba(255,255,255,.18);padding-top:12px;'>🎓 " + p.examen + "</p></div>" +
+
+    "<div style='background:#fff;border:1px solid #dce7f0;border-radius:14px;padding:16px 20px;margin-bottom:18px;'>" +
+      "<div style='display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;'>" +
+      "<b style='color:var(--navy);font-size:.95rem;'>📔 Mon carnet de validation</b>" +
+      "<span id='prog-texte' style='font-size:.82rem;color:var(--mut);'></span></div>" +
+      "<div style='height:10px;background:var(--ice);border-radius:99px;margin-top:10px;overflow:hidden;'><div id='prog-barre' style='height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--ocean));border-radius:99px;transition:width .4s;'></div></div>" +
+      "<div id='carnet-lignes' style='margin-top:12px;'></div>" +
+      "<p style='font-size:.78rem;color:var(--mut);margin-top:10px;'>Vos coches sont enregistrées sur cet appareil, personne d'autre ne les voit. Une compétence passe à 🟢 quand tous ses critères de validation sont cochés. La validation officielle du brevet reste celle du jury — ce carnet vous montre où vous en êtes et quoi travailler en priorité, avant et après le stage.</p>" +
+    "</div>" +
+
+    "<h3 style='font-family:Cambria,Georgia,serif;font-size:1.15rem;color:var(--ocean);margin:6px 0 12px;'>Les compétences clés de votre niveau</h3>" +
+    blocsComp +
+
+    "<div class='cartes' style='grid-template-columns:repeat(auto-fill,minmax(320px,1fr));margin-top:20px;'>" +
     "<div class='carte'><h3>📌 Vos priorités pendant le stage</h3>" + liste(p.priorites) + "</div>" +
-    "<div class='carte'><h3>📚 Supports à travailler</h3>" + liste(p.supports) + "<p style='margin-top:10px;'><a href='#' onclick=\"aller('supports');return false;\">→ Ouvrir l'onglet Supports</a></p></div>" +
-    "<div class='carte'><h3>✅ Ce qu'on attendra de vous</h3>" + liste(p.attendus) + "</div>" +
+    "<div class='carte'><h3>🗓️ Comment utiliser ce parcours</h3><ul style='margin:8px 0 0 18px;color:var(--ink);font-size:.9rem;line-height:1.6;'><li><b>Avant le stage</b> : ouvrez chaque compétence, cochez ce qui est déjà acquis, puis travaillez les exercices des compétences ⚪.</li><li><b>Pendant le stage</b> : chaque cours et chaque passage au tableau correspond à une compétence — repérez laquelle, et cochez les exercices faits en conditions réelles.</li><li><b>Après chaque journée</b> : relisez les critères et cochez honnêtement. Ce qui reste non coché = votre programme d'entraînement pour la suite.</li></ul></div>" +
     "</div>" +
     "<div class='alerte' style='margin-top:18px;background:var(--ice);color:var(--ink);'><b style='color:var(--ocean);'>À noter : </b>" + p.note + "</div>";
+  majProgression(actif);
 }
+
 function aller(s){
   document.querySelectorAll('.section').forEach(x=>x.classList.remove('actif'));
   document.getElementById('s-'+s).classList.add('actif');
